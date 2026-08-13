@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f4f0e8" />
+    <meta name="description" content="Review your finalized personal values." />
+    <title>My Values — What Should I Do?</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="cover-page" data-auth="required">
+    <div class="grain" aria-hidden="true"></div>
+    <header class="topbar">
+      <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>What Should I Do?</span></a>
+      <div class="top-actions"><a class="header-home-link" href="values.html">← Revise my values</a><a class="header-home-link" href="index.html">Home</a></div>
+    </header>
+
+    <main class="final-values-main">
+      <section class="final-values-hero">
+        <div><p class="eyebrow">VALUES SORTING EXERCISE</p><h1>My Values</h1><p id="finalValuesIntro">Loading your finalized values…</p></div>
+        <div class="final-values-summary" id="finalValuesSummary" hidden><strong id="finalValuesCount">0</strong><span>final values</span><small id="finalValuesDate"></small></div>
+      </section>
+
+      <section class="final-values-empty" id="finalValuesEmpty" hidden>
+        <span aria-hidden="true">◇</span>
+        <p class="eyebrow">YOUR LIST IS NOT FINAL YET</p>
+        <h2>Sort, organize, and finalize your values.</h2>
+        <p>Complete the card sort and review your Yes pile. When the list feels right, finalize it to publish it here.</p>
+        <a class="cover-primary" href="values.html">Return to the values sorter <span aria-hidden="true">→</span></a>
+      </section>
+
+      <section class="final-values-content" id="finalValuesContent" hidden aria-live="polite">
+        <div class="final-values-toolbar">
+          <div><p>Add a verb to each value to describe how you will put it into action.</p><span class="action-save-status" id="actionSaveStatus" role="status" aria-live="polite">Saved to your account</span></div>
+          <button class="secondary-btn" id="downloadValues" type="button">Download my actionable values</button>
+        </div>
+        <section class="action-verb-guide" id="actionVerbGuide" aria-labelledby="actionVerbGuideTitle">
+          <div class="action-verb-guide-head"><div><p class="eyebrow">ACTION VERB IDEAS</p><h2 id="actionVerbGuideTitle">Choose a powerful action</h2></div><p>Select an action field below, then choose a verb—or type one of your own.</p></div>
+          <div class="action-verb-controls">
+            <label class="action-verb-search" for="actionVerbSearch"><span aria-hidden="true">⌕</span><input id="actionVerbSearch" type="search" placeholder="Search action verbs" autocomplete="off" /></label>
+            <span id="actionVerbCount" aria-live="polite">100 verbs</span>
+          </div>
+          <div class="action-verb-list" id="actionVerbList" aria-label="100 action verb ideas"></div>
+        </section>
+        <div class="final-values-groups" id="finalValuesGroups"></div>
+        <div class="final-values-next">
+          <div><p class="eyebrow">NEXT STEP</p><h2>Notice how your time reflects what you value.</h2><p>Continue to the Time Audit and look for patterns in your daily choices.</p></div>
+          <a class="cover-primary" href="time-audit.html">Continue to Time Audit <span aria-hidden="true">→</span></a>
+        </div>
+      </section>
+    </main>
+
+    <script src="config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="cloud-sync.js"></script>
+    <script src="my-values.js"></script>
+  </body>
+</html>

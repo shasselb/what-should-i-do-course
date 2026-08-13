@@ -34,13 +34,17 @@
     <main>
       <section class="intro" aria-labelledby="pageTitle">
         <div>
-          <p class="eyebrow">VALUES SORTING EXCERCISE</p>
+          <p class="eyebrow">VALUES SORTING EXERCISE</p>
           <h1 id="pageTitle">Identify your top values</h1>
           <p class="subtitle">Move each card into a pile. Click, drag, or use keys <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd>.</p>
         </div>
         <div class="progress-wrap" aria-label="Deck progress">
           <div class="progress-copy"><span id="progressLabel">0 of 120 sorted</span><strong id="progressPercent">0%</strong></div>
           <div class="progress-track"><span id="progressBar"></span></div>
+          <button class="save-status" id="saveStatus" type="button" data-state="loading" disabled>
+            <span class="save-status-icon" id="saveStatusIcon" aria-hidden="true">↻</span>
+            <span id="saveStatusText" role="status" aria-live="polite">Loading saved progress…</span>
+          </button>
         </div>
       </section>
 
@@ -69,8 +73,8 @@
               <span class="complete-icon">✓</span>
               <p class="eyebrow">DECK COMPLETE</p>
               <h2>Nicely sorted.</h2>
-              <p>Your next study session is ready. Start with the red pile.</p>
-              <button class="primary-btn" id="reviewButton" type="button">Review No pile</button>
+              <p>Review your Yes pile, group similar values, and finalize your list.</p>
+              <button class="primary-btn" id="reviewButton" type="button">Review Yes pile</button>
             </div>
           </div>
           <button class="undo-btn" id="undoButton" type="button" disabled><span aria-hidden="true">↶</span> Undo last move <kbd>Z</kbd></button>
@@ -103,7 +107,7 @@
               <span class="pile-count" id="knownCount">0</span>
             </button>
             <button class="pile-view" type="button" data-view-pile="known">View pile <span aria-hidden="true">→</span></button>
-            <button class="confirm-values" id="confirmValuesButton" type="button">Confirm my values</button>
+            <button class="confirm-values" id="confirmValuesButton" type="button">Finalize my values</button>
           </div>
         </div>
       </section>
@@ -114,7 +118,25 @@
         <div><p class="eyebrow" id="modalEyebrow">PILE REVIEW</p><h2 id="modalTitle">No</h2></div>
         <button class="close-btn" id="closeDialog" aria-label="Close review">×</button>
       </div>
+      <div class="review-organizer">
+        <div>
+          <strong>Organize this pile</strong>
+          <span>Create groups for similar values, then drag cards to arrange them.</span>
+        </div>
+        <form class="group-form" id="groupForm">
+          <label class="sr-only" for="groupName">New group name</label>
+          <input id="groupName" name="groupName" type="text" maxlength="50" placeholder="e.g. Relationships" required />
+          <button type="submit">Add group</button>
+        </form>
+      </div>
       <div class="review-list" id="reviewList"></div>
+      <div class="finalize-values-panel" id="finalizeValuesPanel" hidden>
+        <div>
+          <strong id="finalizeValuesTitle">Ready to finalize?</strong>
+          <span id="finalizeValuesMessage">Group similar values if helpful, then publish your list for the next part of the exercise.</span>
+        </div>
+        <button class="primary-btn" id="finalizeValuesButton" type="button">Finalize my values <span aria-hidden="true">→</span></button>
+      </div>
     </dialog>
 
     <dialog id="adminDialog" class="admin-dialog">
@@ -122,7 +144,7 @@
         <div><p class="eyebrow">SITE ADMIN</p><h2>Load card content</h2></div>
         <button class="close-btn" id="closeAdminDialog" type="button" aria-label="Close card editor">×</button>
       </div>
-      <p class="admin-intro">Select any card, enter its content, and save. Changes appear immediately and remain on this device.</p>
+      <p class="admin-intro">Select any card, enter its content, and save. Changes are published for all users.</p>
       <form id="cardEditorForm" class="card-editor-form">
         <label class="admin-field"><span>Card number</span><input id="adminCardSelect" name="cardId" type="number" min="1" max="120" step="1" inputmode="numeric" aria-label="Enter a card number from 1 to 120" required /><small>Type any number from 1–120.</small></label>
         <label class="admin-field"><span>Category</span><input id="adminCategory" name="category" type="text" maxlength="40" placeholder="e.g. Geography" required /></label>

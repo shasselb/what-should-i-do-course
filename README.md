@@ -10,6 +10,10 @@ A production-ready, multi-page course application for making God-honoring decisi
 - Vercel Functions for runtime configuration and authenticated email delivery
 - Resend for transactional email
 - Automatic one-year retention from each user's latest save
+- Automatic cross-device saving after every card sort, pile-to-pile move, grouping, reorder, and finalization
+- A protected My Values page that preserves each user's finalized groups and order
+- Action verbs for finalized values, saved with the user's account and included in downloads and email summaries
+- A searchable, scrollable guide of 100 one-click action verbs for each finalized value
 - Security headers configured in `vercel.json`
 
 No service-role key or email-provider key is ever sent to the browser.

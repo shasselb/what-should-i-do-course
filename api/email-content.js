@@ -42,10 +42,15 @@ function buildEmail(content, email) {
   const notes = content[USER_KEYS.notes] || {};
   const state = content[USER_KEYS.values] || {};
   const audit = content[USER_KEYS.audit] || [];
-  const values = Array.isArray(state?.confirmedValues) && state.confirmedValues.length ? state.confirmedValues.join(", ") : "Not confirmed yet";
+  const actionableValues = Array.isArray(state?.finalizedGroups) ? state.finalizedGroups.flatMap(group => Array.isArray(group?.values) ? group.values.map(item => {
+    const value = String(item?.value || "").trim();
+    const verb = String(item?.actionVerb || state?.valueActions?.[String(item?.id)] || "").trim();
+    return value ? `${verb ? `${verb} ` : ""}${value}` : "";
+  }).filter(Boolean) : []) : [];
+  const values = actionableValues.length ? actionableValues.join(", ") : Array.isArray(state?.confirmedValues) && state.confirmedValues.length ? state.confirmedValues.join(", ") : "Not finalized yet";
   const noteHtml = Object.entries(notes).map(([key, value]) => `<h3>${escapeHtml(key.replace(/-/g, " "))}</h3><p>${escapeHtml(value).replace(/\n/g, "<br>")}</p>`).join("") || "<p>No Pre-Work notes yet.</p>";
   const auditHours = audit.reduce((sum, item) => sum + Number(item.hours || 0), 0);
-  return `<!doctype html><html><body style="font-family:Arial,sans-serif;color:#1f2824;line-height:1.6;max-width:680px;margin:auto;padding:32px"><p style="color:#2f7257;font-weight:bold">WHAT SHOULD I DO?</p><h1>Your saved course content</h1><p>Private summary for ${escapeHtml(email)}</p><hr><h2>Pre-Work notes</h2>${noteHtml}<h2>Confirmed values</h2><p>${escapeHtml(values)}</p><h2>Time Audit</h2><p>${audit.length} entries totaling ${auditHours.toFixed(2)} hours.</p><hr><small>Your account data is retained for one year after your latest update.</small></body></html>`;
+  return `<!doctype html><html><body style="font-family:Arial,sans-serif;color:#1f2824;line-height:1.6;max-width:680px;margin:auto;padding:32px"><p style="color:#2f7257;font-weight:bold">WHAT SHOULD I DO?</p><h1>Your saved course content</h1><p>Private summary for ${escapeHtml(email)}</p><hr><h2>Pre-Work notes</h2>${noteHtml}<h2>Finalized values</h2><p>${escapeHtml(values)}</p><h2>Time Audit</h2><p>${audit.length} entries totaling ${auditHours.toFixed(2)} hours.</p><hr><small>Your account data is retained for one year after your latest update.</small></body></html>`;
 }
 
 function escapeHtml(value) {
