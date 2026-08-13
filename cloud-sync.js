@@ -18,6 +18,9 @@
   let session;
   let profile;
   let syncTimer;
+  let syncInFlight;
+  let syncDirty = false;
+  let hydrationComplete = false;
   let applyingRemote = false;
 
   window.AppCloud = {
@@ -30,7 +33,7 @@
       USER_KEYS.forEach(key => originalRemoveItem(key));
       location.href = "index.html";
     },
-    syncNow: () => syncToCloud()
+    syncNow: () => scheduleSync(0)
   };
 
   localStorage.setItem = function (key, value) {
@@ -69,9 +72,11 @@
       const { data: profileData } = await client.from("profiles").select("id,email,full_name,role").eq("id", session.user.id).maybeSingle();
       profile = profileData || { id: session.user.id, email: session.user.email, role: "user" };
       await hydrateGlobal();
-      await hydrateUser();
+      hydrationComplete = await hydrateUser();
+      if (hydrationComplete && syncDirty) await syncToCloud();
     } else {
       await hydrateGlobal();
+      hydrationComplete = true;
     }
 
     const requirement = document.body?.dataset.auth;
@@ -80,7 +85,7 @@
       return redirectToAuth("Administrator access is required.");
     }
 
-    return finish({ configured: true, session, profile });
+    return finish({ configured: true, session, profile, storageReady: hydrationComplete });
   }
 
   async function hydrateGlobal() {
@@ -89,12 +94,17 @@
   }
 
   async function hydrateUser() {
-    const { data } = await client.from("user_data").select("content").eq("user_id", session.user.id).maybeSingle();
+    const { data, error } = await client.from("user_data").select("content").eq("user_id", session.user.id).maybeSingle();
+    if (error) {
+      document.dispatchEvent(new CustomEvent("cloud-save-error", { detail: { message: error.message || "Unable to load saved progress." } }));
+      return false;
+    }
     if (data?.content && Object.keys(data.content).length) {
       applyKeys(data.content, USER_KEYS, `user-hydrated-${session.user.id}`);
     } else {
       await syncToCloud();
     }
+    return true;
   }
 
   function applyKeys(values, keys, reloadKey) {
@@ -126,28 +136,57 @@
     try { return JSON.parse(value); } catch { return value; }
   }
 
-  function scheduleSync() {
+  function scheduleSync(delay = 700) {
+    syncDirty = true;
+    document.dispatchEvent(new CustomEvent("cloud-saving"));
     clearTimeout(syncTimer);
-    syncTimer = setTimeout(syncToCloud, 700);
+    if (delay === 0) return syncToCloud();
+    syncTimer = setTimeout(syncToCloud, delay);
   }
 
   async function syncToCloud() {
-    if (!client || !session || applyingRemote) return;
-    await client.from("user_data").upsert({
-      user_id: session.user.id,
-      content: collect(USER_KEYS),
-      updated_at: new Date().toISOString(),
-      expires_at: new Date(Date.now() + 365 * 86400000).toISOString()
-    }, { onConflict: "user_id" });
-    if (profile?.role === "admin") {
-      await client.from("site_config").upsert({
-        id: "primary",
-        content: collect(GLOBAL_KEYS),
-        updated_by: session.user.id,
-        updated_at: new Date().toISOString()
-      }, { onConflict: "id" });
+    clearTimeout(syncTimer);
+    syncTimer = null;
+    if (!client || !session || !hydrationComplete || applyingRemote) return false;
+    if (syncInFlight) return syncInFlight;
+
+    const run = (async () => {
+      try {
+        while (syncDirty) {
+          syncDirty = false;
+          const { error: userError } = await client.from("user_data").upsert({
+            user_id: session.user.id,
+            content: collect(USER_KEYS),
+            updated_at: new Date().toISOString(),
+            expires_at: new Date(Date.now() + 365 * 86400000).toISOString()
+          }, { onConflict: "user_id" });
+          if (userError) throw userError;
+
+          if (profile?.role === "admin") {
+            const { error: globalError } = await client.from("site_config").upsert({
+              id: "primary",
+              content: collect(GLOBAL_KEYS),
+              updated_by: session.user.id,
+              updated_at: new Date().toISOString()
+            }, { onConflict: "id" });
+            if (globalError) throw globalError;
+          }
+        }
+        document.dispatchEvent(new CustomEvent("cloud-saved"));
+        return true;
+      } catch (error) {
+        syncDirty = true;
+        document.dispatchEvent(new CustomEvent("cloud-save-error", { detail: { message: error?.message || "Unable to save." } }));
+        return false;
+      }
+    })();
+
+    syncInFlight = run;
+    try {
+      return await run;
+    } finally {
+      if (syncInFlight === run) syncInFlight = null;
     }
-    document.dispatchEvent(new CustomEvent("cloud-saved"));
   }
 
   function redirectToAuth(message) {
