@@ -43,8 +43,8 @@ Row Level Security ensures users can only access their own course data. Site con
 Import this GitHub repository into Vercel and add these environment variables:
 
 - `SUPABASE_URL`
-- `SUPABASE_ANON_KEY`
-- `SUPABASE_SERVICE_ROLE_KEY`
+- `SUPABASE_PUBLISHABLE_KEY`
+- `SUPABASE_SECRET_KEY`
 - `RESEND_API_KEY`
 - `EMAIL_FROM` — a sender address on a verified Resend domain
 
@@ -75,4 +75,3 @@ Admin changes are stored in shared cloud configuration and appear for all users.
 - Add production and local URLs to Supabase Auth.
 - Test registration, email confirmation, sign-in, sign-out, password reset, admin publishing, cross-device sync, and self-emailing.
 - Review your privacy notice and terms with qualified counsel before accepting public registrations.
-

@@ -53,12 +53,13 @@
 
   async function bootstrap() {
     const config = await getConfig();
-    if (!config?.supabaseUrl || !config?.supabaseAnonKey || !window.supabase?.createClient) {
+    const supabaseKey = config?.supabasePublishableKey || config?.supabaseAnonKey;
+    if (!config?.supabaseUrl || !supabaseKey || !window.supabase?.createClient) {
       if (document.body?.dataset.auth) return redirectToAuth("Account services are not configured yet.");
       return finish({ configured: false });
     }
 
-    client = window.supabase.createClient(config.supabaseUrl, config.supabaseAnonKey, {
+    client = window.supabase.createClient(config.supabaseUrl, supabaseKey, {
       auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
     });
     const { data } = await client.auth.getSession();

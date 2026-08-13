@@ -10,16 +10,16 @@ export default async function handler(request, response) {
   if (!token) return response.status(401).json({ error: "Sign in is required." });
 
   const supabaseUrl = process.env.SUPABASE_URL;
-  const anonKey = process.env.SUPABASE_ANON_KEY;
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const publishableKey = process.env.SUPABASE_PUBLISHABLE_KEY || process.env.SUPABASE_ANON_KEY;
+  const secretKey = process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
   const resendKey = process.env.RESEND_API_KEY;
-  if (!supabaseUrl || !anonKey || !serviceKey || !resendKey) return response.status(503).json({ error: "Email service is not configured." });
+  if (!supabaseUrl || !publishableKey || !secretKey || !resendKey) return response.status(503).json({ error: "Email service is not configured." });
 
-  const userResponse = await fetch(`${supabaseUrl}/auth/v1/user`, { headers: { apikey: anonKey, Authorization: `Bearer ${token}` } });
+  const userResponse = await fetch(`${supabaseUrl}/auth/v1/user`, { headers: { apikey: publishableKey, Authorization: `Bearer ${token}` } });
   if (!userResponse.ok) return response.status(401).json({ error: "Your session has expired. Please sign in again." });
   const user = await userResponse.json();
   const dataResponse = await fetch(`${supabaseUrl}/rest/v1/user_data?user_id=eq.${encodeURIComponent(user.id)}&select=content`, {
-    headers: { apikey: serviceKey, Authorization: `Bearer ${serviceKey}`, Accept: "application/json" }
+    headers: { apikey: secretKey, Authorization: `Bearer ${secretKey}`, Accept: "application/json" }
   });
   const rows = await dataResponse.json();
   const content = rows?.[0]?.content || {};
