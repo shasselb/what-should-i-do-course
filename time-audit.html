@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f4f0e8" />
+    <meta name="description" content="Track one month of daily activities and discover patterns in how you use your time." />
+    <title>Time Audit — What Should I Do?</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="cover-page" data-auth="required">
+    <div class="grain" aria-hidden="true"></div>
+    <header class="topbar cover-topbar">
+      <a class="brand" href="index.html" aria-label="What Should I Do? home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>What Should I Do?</span></a>
+      <nav class="cover-nav" aria-label="Main navigation"><a href="index.html">Home</a><a href="course-outline.html">Course Outline</a><a href="pre-work.html">Pre-Work</a><a class="active" href="time-audit.html">Time Audit</a><a href="values.html">Values</a><a href="account.html">My account</a></nav>
+    </header>
+
+    <main class="audit-main">
+      <a class="back-link" href="course-outline.html"><span aria-hidden="true">←</span> Back to course outline</a>
+      <section class="audit-hero">
+        <div><p class="eyebrow">DECIDE TO PLAN</p><h1>Time Audit</h1><p>Track how you use your time each day for one month. As the month fills in, patterns will reveal where your attention is actually going.</p></div>
+        <label class="month-control"><span>Audit month</span><input id="auditMonth" type="month" aria-label="Choose audit month" /></label>
+      </section>
+
+      <section class="audit-summary" aria-label="Monthly summary">
+        <article><span>Total tracked</span><strong id="totalHours">0h</strong><small>this month</small></article>
+        <article><span>Top category</span><strong id="topCategory">—</strong><small id="topCategoryHours">No entries yet</small></article>
+        <article><span>Daily average</span><strong id="dailyAverage">0h</strong><small>per active day</small></article>
+        <article><span>Days logged</span><strong id="daysLogged">0</strong><small id="daysRemaining">Start your audit</small></article>
+      </section>
+
+      <section class="audit-layout">
+        <aside class="audit-entry-card">
+          <p class="eyebrow">DAILY ENTRY</p><h2>Log your time</h2><p>Add activities throughout the day or enter everything at the end of the day.</p>
+          <form id="auditForm" class="audit-form">
+            <label><span>Date</span><input id="entryDate" name="date" type="date" required /></label>
+            <label><span>Category</span><select name="category" required><option>Sleep</option><option>Work</option><option>Read the Bible</option><option>Serve</option><option>Family</option><option>Workout</option><option>Learning</option><option>Cooking/Cleaning/House Work</option><option>Leisure</option><option>Social Media</option><option>Commute/Travel</option><option>Other</option></select></label>
+            <label><span>Hours</span><input name="hours" type="number" min="0.25" max="24" step="0.25" placeholder="1.5" required /></label>
+            <label><span>What did you do?</span><input name="note" type="text" maxlength="120" placeholder="Optional detail" /></label>
+            <button class="cover-primary" type="submit">Add to audit <span aria-hidden="true">+</span></button>
+          </form>
+          <p class="audit-save-note">Your audit saves automatically to your account.</p>
+        </aside>
+
+        <div class="audit-insights">
+          <section class="insight-card">
+            <div class="insight-heading"><div><p class="eyebrow">WHERE YOUR TIME GOES</p><h2>Category breakdown</h2></div><span id="entryCount">0 entries</span></div>
+            <div class="category-chart" id="categoryChart"><p class="audit-empty">Log your first activity to see your time pattern.</p></div>
+          </section>
+          <section class="insight-card">
+            <div class="insight-heading"><div><p class="eyebrow">WEEKLY RHYTHM</p><h2>Average by day</h2></div></div>
+            <div class="weekday-chart" id="weekdayChart"></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="audit-log-section">
+        <div class="insight-heading"><div><p class="eyebrow">YOUR RECORD</p><h2>Daily activity log</h2></div><button class="clear-audit" id="clearAudit" type="button">Clear this month</button></div>
+        <div class="audit-log" id="auditLog"><p class="audit-empty">No activities logged for this month.</p></div>
+      </section>
+    </main>
+    <footer class="cover-footer"><span>What Should I Do?</span><span>A tool for making God-honoring decisions.</span></footer>
+    <script src="config.local.js" onerror="this.remove()"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="cloud-sync.js"></script>
+    <script src="time-audit.js"></script>
+  </body>
+</html>

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f4f0e8" />
+    <meta name="description" content="Manage videos and website content." />
+    <title>Admin — What Should I Do?</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="cover-page" data-auth="admin">
+    <div class="grain" aria-hidden="true"></div>
+    <header class="topbar cover-topbar">
+      <a class="brand" href="index.html" aria-label="What Should I Do? home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>What Should I Do?</span></a>
+      <nav class="cover-nav" aria-label="Main navigation"><a href="index.html">View site</a><a class="active" href="admin.html">Admin</a></nav>
+    </header>
+
+    <main class="site-admin-main">
+      <section class="site-admin-hero"><p class="eyebrow">SITE ADMIN</p><h1>Manage your course</h1><p>Add course videos and update key content across the website. Changes publish securely for every participant.</p></section>
+
+      <section class="admin-panel" id="videos">
+        <div class="admin-panel-heading"><div><p class="eyebrow">MEDIA</p><h2>Course videos</h2><p>Add YouTube videos to the Course Outline playlist.</p></div><span id="videoCount">0 videos</span></div>
+        <form class="admin-video-form" id="adminVideoForm">
+          <label><span>Video title</span><input name="title" type="text" maxlength="80" placeholder="Course Introduction" required /></label>
+          <label><span>YouTube URL</span><input name="url" type="url" placeholder="https://youtu.be/…" required /></label>
+          <button class="cover-primary" type="submit">Add video <span aria-hidden="true">+</span></button>
+          <p class="video-error" id="adminVideoError" role="alert"></p>
+        </form>
+        <div class="admin-video-list" id="adminVideoList"></div>
+      </section>
+
+      <section class="admin-panel" id="content">
+        <div class="admin-panel-heading"><div><p class="eyebrow">WEBSITE COPY</p><h2>Edit content</h2><p>Update the primary text displayed across course pages.</p></div></div>
+        <form class="admin-content-form" id="adminContentForm">
+          <fieldset><legend>Home page</legend>
+            <label><span>Intro label</span><input name="homeEyebrow" type="text" /></label>
+            <label><span>Main heading</span><textarea name="homeTitle" rows="2"></textarea></label>
+            <label><span>Intro paragraph</span><textarea name="homeLead" rows="4"></textarea></label>
+          </fieldset>
+          <fieldset><legend>Course Outline</legend>
+            <label><span>Course subtitle</span><input name="courseSubtitle" type="text" /></label>
+            <label><span>Introduction — paragraph one</span><textarea name="courseIntroOne" rows="4"></textarea></label>
+            <label><span>Introduction — paragraph two</span><textarea name="courseIntroTwo" rows="4"></textarea></label>
+          </fieldset>
+          <fieldset><legend>Pre-Work</legend>
+            <label><span>Page introduction</span><textarea name="preworkIntro" rows="4"></textarea></label>
+          </fieldset>
+          <div class="admin-content-actions"><button class="secondary-btn" id="resetSiteContent" type="button">Restore original content</button><button class="cover-primary" type="submit">Save content <span aria-hidden="true">✓</span></button></div>
+        </form>
+      </section>
+      <section class="admin-panel" id="facilitation">
+        <div class="admin-panel-heading"><div><p class="eyebrow">FACILITATION CONTENT</p><h2>Edit drill-down pages</h2><p>Select any BE, KNOW, or DO item and add content that participants will see on its discussion page.</p></div></div>
+        <form class="admin-content-form" id="adminFacilitationForm">
+          <fieldset><legend>Select a discussion page</legend>
+            <label><span>Stage</span><select name="stage" id="facilitationStage"><option value="be">BE</option><option value="know">KNOW</option><option value="do">DO</option></select></label>
+            <label><span>Item</span><select name="item" id="facilitationItem"><option value="1">01 — Set the focus</option><option value="2">02 — Discuss</option><option value="3">03 — Reflect or exercise</option><option value="4">04 — Apply</option></select></label>
+          </fieldset>
+          <fieldset><legend>Build the user page</legend>
+            <label><span>Page title</span><input name="heading" type="text" maxlength="120" placeholder="Enter the discussion page title" required /></label>
+            <label><span>Teaching content</span><textarea name="body" rows="7" placeholder="Add the teaching content that will appear on the user page..." required></textarea></label>
+            <label><span>Key Scripture</span><textarea name="scripture" rows="5" placeholder="Add references such as Romans 8:1 or Hebrews 11:1–6. References become clickable ESV links automatically."></textarea></label>
+            <label><span>Discussion questions</span><textarea name="questions" rows="6" placeholder="Enter one question per line"></textarea></label>
+            <label><span>Facilitator takeaway</span><textarea name="takeaway" rows="3" placeholder="Add a key idea, application, or closing instruction"></textarea></label>
+          </fieldset>
+          <div class="admin-content-actions"><button class="secondary-btn" id="clearFacilitationContent" type="button">Restore default page</button><a class="secondary-btn admin-preview-link" id="previewFacilitationItem" href="facilitation-item.html?stage=be&amp;item=1" target="_blank">Preview user page ↗</a><button class="cover-primary" type="submit">Save &amp; create user page <span aria-hidden="true">✓</span></button></div>
+        </form>
+      </section>
+    </main>
+    <footer class="cover-footer"><span>What Should I Do?</span><span>Administration</span></footer>
+    <div class="toast" id="adminToast" role="status" aria-live="polite"></div>
+    <script src="config.local.js" onerror="this.remove()"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="cloud-sync.js"></script>
+    <script src="admin.js"></script>
+  </body>
+</html>

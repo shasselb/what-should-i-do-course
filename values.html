@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f4f0e8" />
+    <meta name="description" content="Sort a deck of 120 flash cards into three piles." />
+    <title>What Should I Do? — Values Card Sorter</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-auth="required">
+    <div class="grain" aria-hidden="true"></div>
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="What Should I Do? home">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span>What Should I Do?</span>
+      </a>
+      <div class="top-actions">
+        <button class="quiet-btn admin-btn" id="adminButton" data-admin-link hidden type="button" title="Manage card content">
+          <span aria-hidden="true">✎</span> Manage cards
+        </button>
+        <button class="quiet-btn" id="shuffleButton" type="button" title="Shuffle remaining cards">
+          <span aria-hidden="true">↝</span> Shuffle
+        </button>
+        <button class="quiet-btn" id="resetButton" type="button">
+          <span aria-hidden="true">↻</span> Start over
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="intro" aria-labelledby="pageTitle">
+        <div>
+          <p class="eyebrow">VALUES SORTING EXCERCISE</p>
+          <h1 id="pageTitle">Identify your top values</h1>
+          <p class="subtitle">Move each card into a pile. Click, drag, or use keys <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd>.</p>
+        </div>
+        <div class="progress-wrap" aria-label="Deck progress">
+          <div class="progress-copy"><span id="progressLabel">0 of 120 sorted</span><strong id="progressPercent">0%</strong></div>
+          <div class="progress-track"><span id="progressBar"></span></div>
+        </div>
+      </section>
+
+      <section class="workspace" id="workspace">
+        <div class="deck-zone">
+          <div class="deck-stage" id="deckStage">
+            <div class="back-card back-two" aria-hidden="true"></div>
+            <div class="back-card back-one" aria-hidden="true"></div>
+            <article class="flash-card" id="activeCard" draggable="true" tabindex="0" aria-live="polite">
+              <div class="card-topline">
+                <span class="card-number" id="cardNumber">CARD 01</span>
+                <span class="drag-hint"><span aria-hidden="true">⠿</span> DRAG TO A PILE</span>
+              </div>
+              <div class="card-content">
+                <p class="category" id="cardCategory">VALUE</p>
+                <h2 id="cardQuestion">Integrity</h2>
+                <button class="reveal-btn" id="revealButton" type="button">Reveal answer <span aria-hidden="true">↓</span></button>
+                <div class="answer" id="cardAnswer" hidden></div>
+              </div>
+              <div class="card-footer">
+                <span><i class="dot"></i><span id="remainingCount">120</span> cards remaining</span>
+                <span class="swipe-note">Choose a pile below</span>
+              </div>
+            </article>
+            <div class="complete-card" id="completeCard" hidden>
+              <span class="complete-icon">✓</span>
+              <p class="eyebrow">DECK COMPLETE</p>
+              <h2>Nicely sorted.</h2>
+              <p>Your next study session is ready. Start with the red pile.</p>
+              <button class="primary-btn" id="reviewButton" type="button">Review No pile</button>
+            </div>
+          </div>
+          <button class="undo-btn" id="undoButton" type="button" disabled><span aria-hidden="true">↶</span> Undo last move <kbd>Z</kbd></button>
+        </div>
+
+        <div class="piles" aria-label="Sorting piles">
+          <div class="pile pile-learning" data-pile="learning">
+            <button class="pile-sort" type="button" aria-label="Sort card into No">
+              <span class="pile-key">1</span>
+              <span class="pile-icon" aria-hidden="true">×</span>
+              <span class="pile-copy"><strong>No</strong><small>Not a top value</small></span>
+              <span class="pile-count" id="learningCount">0</span>
+            </button>
+            <button class="pile-view" type="button" data-view-pile="learning">View pile <span aria-hidden="true">→</span></button>
+          </div>
+          <div class="pile pile-unsure" data-pile="unsure">
+            <button class="pile-sort" type="button" aria-label="Sort card into Maybe">
+              <span class="pile-key">2</span>
+              <span class="pile-icon" aria-hidden="true">~</span>
+              <span class="pile-copy"><strong>Maybe</strong><small>Not sure yet</small></span>
+              <span class="pile-count" id="unsureCount">0</span>
+            </button>
+            <button class="pile-view" type="button" data-view-pile="unsure">View pile <span aria-hidden="true">→</span></button>
+          </div>
+          <div class="pile pile-known" data-pile="known">
+            <button class="pile-sort" type="button" aria-label="Sort card into Yes">
+              <span class="pile-key">3</span>
+              <span class="pile-icon" aria-hidden="true">✓</span>
+              <span class="pile-copy"><strong>Yes</strong><small>This is a top value</small></span>
+              <span class="pile-count" id="knownCount">0</span>
+            </button>
+            <button class="pile-view" type="button" data-view-pile="known">View pile <span aria-hidden="true">→</span></button>
+            <button class="confirm-values" id="confirmValuesButton" type="button">Confirm my values</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <dialog id="reviewDialog">
+      <div class="modal-head">
+        <div><p class="eyebrow" id="modalEyebrow">PILE REVIEW</p><h2 id="modalTitle">No</h2></div>
+        <button class="close-btn" id="closeDialog" aria-label="Close review">×</button>
+      </div>
+      <div class="review-list" id="reviewList"></div>
+    </dialog>
+
+    <dialog id="adminDialog" class="admin-dialog">
+      <div class="modal-head">
+        <div><p class="eyebrow">SITE ADMIN</p><h2>Load card content</h2></div>
+        <button class="close-btn" id="closeAdminDialog" type="button" aria-label="Close card editor">×</button>
+      </div>
+      <p class="admin-intro">Select any card, enter its content, and save. Changes appear immediately and remain on this device.</p>
+      <form id="cardEditorForm" class="card-editor-form">
+        <label class="admin-field"><span>Card number</span><input id="adminCardSelect" name="cardId" type="number" min="1" max="120" step="1" inputmode="numeric" aria-label="Enter a card number from 1 to 120" required /><small>Type any number from 1–120.</small></label>
+        <label class="admin-field"><span>Category</span><input id="adminCategory" name="category" type="text" maxlength="40" placeholder="e.g. Geography" required /></label>
+        <label class="admin-field admin-field-wide"><span>Front of card</span><textarea id="adminQuestion" name="question" rows="4" maxlength="500" placeholder="Enter the prompt or question" required></textarea></label>
+        <label class="admin-field admin-field-wide"><span>Back of card</span><textarea id="adminAnswer" name="answer" rows="3" maxlength="500" placeholder="Enter the answer or supporting content" required></textarea></label>
+        <div class="admin-actions admin-field-wide">
+          <button class="secondary-btn" id="restoreCardButton" type="button">Restore original</button>
+          <button class="primary-btn" type="submit">Save card &amp; next</button>
+        </div>
+      </form>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="config.local.js" onerror="this.remove()"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="cloud-sync.js"></script>
+    <script src="site-shell.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f4f0e8" />
+    <meta name="description" content="Course outline for What Should I Do?" />
+    <title>Course Outline — What Should I Do?</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="cover-page">
+    <div class="grain" aria-hidden="true"></div>
+    <header class="topbar cover-topbar">
+      <a class="brand" href="index.html" aria-label="What Should I Do? home">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span>What Should I Do?</span>
+      </a>
+      <nav class="cover-nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a class="active" href="course-outline.html">Course Outline</a>
+        <a href="pre-work.html">Pre-Work</a>
+        <a href="values.html">Values exercise</a>
+        <a href="account.html" data-account-link>Sign in</a>
+      </nav>
+    </header>
+
+    <main class="outline-main">
+      <a class="back-link" href="index.html"><span aria-hidden="true">←</span> Back home</a>
+      <section class="outline-hero">
+        <p class="eyebrow">A PRACTICAL COURSE</p>
+        <h1>What Should I Do?</h1>
+        <p class="outline-subtitle" data-content-key="courseSubtitle">A Practical Guide to God-Honoring Decisions.</p>
+      </section>
+
+      <section class="course-video-section" aria-labelledby="videoTitle">
+        <div class="course-video-heading"><div><p class="eyebrow">WATCH</p><h2 id="videoTitle">Course Videos</h2></div><a class="admin-video-link" data-admin-link href="admin.html#videos" hidden>Manage videos</a></div>
+        <div class="video-player" id="videoPlayer" hidden><iframe id="youtubeFrame" title="Course introduction video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+        <div class="video-playlist" id="videoPlaylist"></div>
+      </section>
+
+      <section class="course-intro">
+        <p data-content-key="courseIntroOne">We have all asked and answered “What should I do?” thousands of times each day. We all want to make great decisions, but something happens between our good intentions and the choices we actually make.</p>
+        <p data-content-key="courseIntroTwo">In this course, you will study great decision makers like Abraham, David, and Peter. You will learn a practical process for making God-honoring decisions that will help you live a transformed life.</p>
+      </section>
+
+      <section class="objectives-section" aria-labelledby="objectivesTitle">
+        <div class="objectives-heading"><p class="eyebrow">WHAT YOU WILL LEARN</p><h2 id="objectivesTitle">Learning Objectives</h2></div>
+        <ol class="objective-list">
+          <li class="objective-card">
+            <span class="outline-number">01</span>
+            <div class="objective-copy">
+              <p class="eyebrow">BE</p>
+              <h3>Be who God created you to be.</h3>
+              <p>Be confident in your identity in Christ, so that you stand firmly and make decisions that honor God.</p>
+            </div>
+          </li>
+          <li class="objective-card">
+            <span class="outline-number">02</span>
+            <div class="objective-copy">
+              <p class="eyebrow">KNOW</p>
+              <h3>Know God. Know what has eternal value.</h3>
+              <p>When you align your values with what has eternal value, then your decisions will honor God.</p>
+              <a class="objective-link" href="values.html">Create your values statement <span aria-hidden="true">→</span></a>
+            </div>
+          </li>
+          <li class="objective-card">
+            <span class="outline-number">03</span>
+            <div class="objective-copy">
+              <p class="eyebrow">DO</p>
+              <h3>Do only what honors God.</h3>
+              <p>Build habits that reflect your identity in Christ.</p>
+              <div class="homework-callout"><strong>Homework</strong><span>Document your time budget.</span><a href="time-audit.html">Start Time Audit →</a></div>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <section class="outline-next">
+        <div><p class="eyebrow">BEGIN THE COURSE</p><h2>Prepare your heart and mind.</h2></div>
+        <a class="cover-primary" href="pre-work.html">Begin Pre-Work <span aria-hidden="true">→</span></a>
+      </section>
+    </main>
+    <footer class="cover-footer"><span>What Should I Do?</span><span>A tool for making God-honoring decisions.</span></footer>
+    <script src="config.local.js" onerror="this.remove()"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="cloud-sync.js"></script>
+    <script src="site-shell.js"></script>
+    <script src="site-content.js"></script>
+    <script src="course-outline.js"></script>
+  </body>
+</html>

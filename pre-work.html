@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f4f0e8" />
+    <meta name="description" content="Prepare your heart and mind for a thoughtful, God-honoring decision." />
+    <title>Pre-Work — What Should I Do?</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="cover-page" data-auth="required">
+    <div class="grain" aria-hidden="true"></div>
+    <header class="topbar cover-topbar">
+      <a class="brand" href="index.html" aria-label="What Should I Do? home">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span>What Should I Do?</span>
+      </a>
+      <nav class="cover-nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a class="active" href="pre-work.html">Pre-Work</a>
+        <a href="values.html">Values exercise</a>
+        <a href="account.html" data-account-link>My account</a>
+      </nav>
+    </header>
+
+    <main class="prework-main">
+      <a class="back-link" href="index.html"><span aria-hidden="true">←</span> Back home</a>
+      <section class="prework-hero">
+        <p class="eyebrow">BEFORE YOU BEGIN</p>
+        <h1>Pre-Work</h1>
+        <p data-content-key="preworkIntro">Begin by reading and reflecting on two Scripture passages. Each reading opens the complete chapter in the English Standard Version.</p>
+      </section>
+
+      <section class="prework-steps" aria-label="Pre-work steps">
+        <article class="prework-card">
+          <span>01</span>
+          <p class="eyebrow">SCRIPTURE READING</p>
+          <h2>Read Romans 8</h2>
+          <p>Reflect on life through the Spirit, our identity as God's children, and the assurance of God's enduring love.</p>
+          <div class="prework-card-actions">
+            <a class="scripture-button" href="https://www.biblegateway.com/passage/?search=Romans%208&amp;version=ESV" target="_blank" rel="noopener noreferrer">Read Romans 8 — ESV <span aria-hidden="true">↗</span></a>
+            <button class="notes-button" type="button" data-note-toggle="romans-8" aria-expanded="false">✎ Take notes</button>
+          </div>
+          <div class="note-panel" data-note-panel="romans-8" hidden>
+            <label for="notes-romans-8">My notes on Romans 8</label>
+            <textarea id="notes-romans-8" data-note-input="romans-8" rows="6" placeholder="What stood out? What might God be inviting you to notice?"></textarea>
+            <small data-note-status="romans-8">Saved securely to your account</small>
+          </div>
+        </article>
+        <article class="prework-card">
+          <span>02</span>
+          <p class="eyebrow">SCRIPTURE READING</p>
+          <h2>Read Hebrews 11</h2>
+          <p>Consider the nature of faith and the examples of people who trusted God while moving forward without seeing the whole path.</p>
+          <div class="prework-card-actions">
+            <a class="scripture-button" href="https://www.biblegateway.com/passage/?search=Hebrews%2011&amp;version=ESV" target="_blank" rel="noopener noreferrer">Read Hebrews 11 — ESV <span aria-hidden="true">↗</span></a>
+            <button class="notes-button" type="button" data-note-toggle="hebrews-11" aria-expanded="false">✎ Take notes</button>
+          </div>
+          <div class="note-panel" data-note-panel="hebrews-11" hidden>
+            <label for="notes-hebrews-11">My notes on Hebrews 11</label>
+            <textarea id="notes-hebrews-11" data-note-input="hebrews-11" rows="6" placeholder="What does this chapter reveal about faithful action?"></textarea>
+            <small data-note-status="hebrews-11">Saved securely to your account</small>
+          </div>
+        </article>
+        <article class="prework-card">
+          <span>03</span>
+          <p class="eyebrow">PRAY AND MEDITATE ON THREE QUESTIONS</p>
+          <h2>Question 1</h2>
+          <p>How is God preparing me for a life with Him in His new creation?</p>
+          <h2>Question 2</h2>
+          <p>What do I hope for?</p>
+          <h2>Question 3</h2>
+          <p>What am I sure of?</p>
+          <div class="prework-card-actions">
+            <button class="notes-button" type="button" data-note-toggle="wise-counsel" aria-expanded="false">✎ Take notes</button>
+          </div>
+          <div class="note-panel" data-note-panel="wise-counsel" hidden>
+            <label for="notes-wise-counsel">My reflections on these questions</label>
+            <textarea id="notes-wise-counsel" data-note-input="wise-counsel" rows="6" placeholder="Write what comes to mind as you pray and meditate."></textarea>
+            <small data-note-status="wise-counsel">Saved securely to your account</small>
+          </div>
+        </article>
+      </section>
+
+      <section class="prework-next">
+        <div><p class="eyebrow">NEXT STEP</p><h2>Ready to identify what matters most?</h2></div>
+        <a class="cover-primary" href="values.html">Continue to values <span aria-hidden="true">→</span></a>
+      </section>
+    </main>
+    <footer class="cover-footer"><span>What Should I Do?</span><span>A tool for making God-honoring decisions.</span></footer>
+    <script src="config.local.js" onerror="this.remove()"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="cloud-sync.js"></script>
+    <script src="site-shell.js"></script>
+    <script src="site-content.js"></script>
+    <script src="pre-work.js"></script>
+  </body>
+</html>
