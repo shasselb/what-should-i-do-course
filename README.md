@@ -1,6 +1,6 @@
 # What Should I Do?
 
-A production-ready, multi-page course application for making God-honoring decisions. It includes BE, KNOW, and DO facilitation content; Pre-Work notes; a 120-card values exercise; a one-month Time Audit; shared admin-managed content; traditional email/password accounts; cloud synchronization; and secure self-emailing.
+A production-ready, multi-page course application for making God-honoring decisions. It includes self-paced BE, KNOW, and DO lessons with a saved learning journal; Pre-Work notes; a 120-card values exercise; a one-month Time Audit; shared admin-managed content; traditional email/password accounts; cloud synchronization; and secure self-emailing.
 
 ## Production architecture
 
@@ -13,6 +13,7 @@ A production-ready, multi-page course application for making God-honoring decisi
 - Automatic cross-device saving after every card sort, pile-to-pile move, grouping, reorder, and finalization
 - A protected My Values page that preserves each user's finalized groups and order
 - Action verbs for finalized values, saved with the user's account and included in downloads and email summaries
+- Saved reflections, faithful next steps, and completion status for all twelve self-paced lessons
 - A searchable, scrollable guide of 100 one-click action verbs for each finalized value
 - Security headers configured in `vercel.json`
 
@@ -64,7 +65,7 @@ Administrators can open `admin.html` to publish:
 
 - YouTube course videos
 - Home, Course Outline, and Pre-Work copy
-- BE, KNOW, and DO drill-down content
+- BE, KNOW, and DO self-paced lesson content
 - Key Scripture references and discussion questions
 - Individual values-card content
 

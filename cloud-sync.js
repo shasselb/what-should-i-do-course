@@ -10,7 +10,8 @@
   const USER_KEYS = [
     "sortly-state-v1",
     "what-should-i-do-prework-notes-v1",
-    "what-should-i-do-time-audit-v1"
+    "what-should-i-do-time-audit-v1",
+    "what-should-i-do-self-paced-notes-v1"
   ];
   const originalSetItem = localStorage.setItem.bind(localStorage);
   const originalRemoveItem = localStorage.removeItem.bind(localStorage);
@@ -192,7 +193,7 @@
   function redirectToAuth(message) {
     const next = encodeURIComponent(location.pathname.split("/").pop() + location.search);
     if (message) sessionStorage.setItem("auth-message", message);
-    location.replace(`auth.html?next=${next}`);
+    location.replace(`auth?next=${next}`);
   }
 
   function finish(detail) {

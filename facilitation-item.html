@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#f4f0e8" />
-    <title>Facilitation Discussion — What Should I Do?</title>
+    <title>Self-Paced Lesson — What Should I Do?</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Fraunces:opsz,wght@9..144,600;9..144,700&amp;display=swap" rel="stylesheet" />
@@ -15,14 +15,20 @@
     <header class="topbar"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>What Should I Do?</span></a><a class="header-home-link" href="index.html">Home</a></header>
     <main class="discussion-main">
       <a class="back-link discussion-back" id="discussionBack" href="index.html">← Back to outline</a>
-      <button class="download-document-button" id="downloadDocument" type="button">Download document <span aria-hidden="true">↓</span></button>
+      <button class="download-document-button" id="downloadDocument" type="button">Download lesson <span aria-hidden="true">↓</span></button>
       <section class="discussion-hero">
         <div class="discussion-identity"><span id="discussionNumber">01</span><p class="eyebrow" id="discussionStage">BE</p></div>
-        <h1 id="discussionTitle">Facilitation discussion</h1>
+        <h1 id="discussionTitle">Self-paced lesson</h1>
         <p id="discussionSummary"></p>
       </section>
       <section class="discussion-page-content" id="discussionContent" aria-live="polite"></section>
-      <nav class="discussion-navigation" aria-label="Facilitation item navigation"><a id="previousDiscussion" href="#">← Previous item</a><a id="nextDiscussion" href="#">Next item →</a></nav>
+      <section class="lesson-journal" aria-labelledby="lessonJournalTitle">
+        <div class="lesson-journal-heading"><div><p class="eyebrow">MY LEARNING JOURNAL</p><h2 id="lessonJournalTitle">Pause, reflect, and respond.</h2></div><span>Saved with your account</span></div>
+        <label for="lessonReflection"><span>What stood out to me?</span><textarea id="lessonReflection" rows="5" placeholder="Record a truth, insight, question, or conviction from this lesson."></textarea></label>
+        <label for="lessonAction"><span>What is my next faithful step?</span><textarea id="lessonAction" rows="4" placeholder="Name one specific way you will apply what you learned."></textarea></label>
+        <div class="lesson-journal-actions"><span id="lessonSaveStatus" role="status" aria-live="polite">Ready</span><button id="lessonCompleteButton" type="button"><span aria-hidden="true">✓</span> Mark lesson complete</button></div>
+      </section>
+      <nav class="discussion-navigation" aria-label="Self-paced lesson navigation"><a id="previousDiscussion" href="#">← Previous lesson</a><a id="nextDiscussion" href="#">Next lesson →</a></nav>
     </main>
     <footer class="cover-footer"><span>What Should I Do?</span><span>BE · KNOW · DO</span></footer>
     <script src="config.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="cloud-sync.js"></script><script src="facilitation-item.js"></script>

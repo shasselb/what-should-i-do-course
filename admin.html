@@ -32,6 +32,18 @@
         <div class="admin-video-list" id="adminVideoList"></div>
       </section>
 
+      <section class="admin-panel" id="values">
+        <div class="admin-panel-heading admin-values-heading">
+          <div><p class="eyebrow">VALUES EXERCISE</p><h2>Values inventory</h2><p>Review every value currently published in the 120-card sorting exercise.</p></div>
+          <span id="adminValueCount">120 values</span>
+        </div>
+        <div class="admin-values-actions">
+          <p>The download includes the card number and value in a spreadsheet-ready CSV file.</p>
+          <button class="cover-primary" id="downloadValues" type="button">Download values <span aria-hidden="true">↓</span></button>
+        </div>
+        <ol class="admin-values-list" id="adminValuesList" aria-label="Published values"></ol>
+      </section>
+
       <section class="admin-panel" id="content">
         <div class="admin-panel-heading"><div><p class="eyebrow">WEBSITE COPY</p><h2>Edit content</h2><p>Update the primary text displayed across course pages.</p></div></div>
         <form class="admin-content-form" id="adminContentForm">
@@ -52,20 +64,20 @@
         </form>
       </section>
       <section class="admin-panel" id="facilitation">
-        <div class="admin-panel-heading"><div><p class="eyebrow">FACILITATION CONTENT</p><h2>Edit drill-down pages</h2><p>Select any BE, KNOW, or DO item and add content that participants will see on its discussion page.</p></div></div>
+        <div class="admin-panel-heading"><div><p class="eyebrow">SELF-PACED LESSON CONTENT</p><h2>Edit lesson pages</h2><p>Select any BE, KNOW, or DO lesson and add teaching content that participants can read, reflect on, and apply at their own pace.</p></div></div>
         <form class="admin-content-form" id="adminFacilitationForm">
-          <fieldset><legend>Select a discussion page</legend>
+          <fieldset><legend>Select a lesson page</legend>
             <label><span>Stage</span><select name="stage" id="facilitationStage"><option value="be">BE</option><option value="know">KNOW</option><option value="do">DO</option></select></label>
-            <label><span>Item</span><select name="item" id="facilitationItem"><option value="1">01 — Set the focus</option><option value="2">02 — Discuss</option><option value="3">03 — Reflect or exercise</option><option value="4">04 — Apply</option></select></label>
+            <label><span>Lesson</span><select name="item" id="facilitationItem"><option value="1">01 — Foundation</option><option value="2">02 — Scripture study</option><option value="3">03 — Reflect and examine</option><option value="4">04 — Apply and act</option></select></label>
           </fieldset>
           <fieldset><legend>Build the user page</legend>
-            <label><span>Page title</span><input name="heading" type="text" maxlength="120" placeholder="Enter the discussion page title" required /></label>
-            <label><span>Teaching content</span><textarea name="body" rows="7" placeholder="Add the teaching content that will appear on the user page..." required></textarea></label>
+            <label><span>Lesson title</span><input name="heading" type="text" maxlength="120" placeholder="Enter the lesson title" required /></label>
+            <label><span>Lesson content</span><textarea name="body" rows="7" placeholder="Add teaching content for the self-paced lesson..." required></textarea></label>
             <label><span>Key Scripture</span><textarea name="scripture" rows="5" placeholder="Add references such as Romans 8:1 or Hebrews 11:1–6. References become clickable ESV links automatically."></textarea></label>
-            <label><span>Discussion questions</span><textarea name="questions" rows="6" placeholder="Enter one question per line"></textarea></label>
-            <label><span>Facilitator takeaway</span><textarea name="takeaway" rows="3" placeholder="Add a key idea, application, or closing instruction"></textarea></label>
+            <label><span>Reflection questions</span><textarea name="questions" rows="6" placeholder="Enter one reflection question per line"></textarea></label>
+            <label><span>Key takeaway</span><textarea name="takeaway" rows="3" placeholder="Add the key idea or application for this lesson"></textarea></label>
           </fieldset>
-          <div class="admin-content-actions"><button class="secondary-btn" id="clearFacilitationContent" type="button">Restore default page</button><a class="secondary-btn admin-preview-link" id="previewFacilitationItem" href="facilitation-item.html?stage=be&amp;item=1" target="_blank">Preview user page ↗</a><button class="cover-primary" type="submit">Save &amp; create user page <span aria-hidden="true">✓</span></button></div>
+          <div class="admin-content-actions"><button class="secondary-btn" id="clearFacilitationContent" type="button">Restore default lesson</button><a class="secondary-btn admin-preview-link" id="previewFacilitationItem" href="facilitation-item?stage=be&amp;item=1" target="_blank">Preview lesson ↗</a><button class="cover-primary" type="submit">Save lesson <span aria-hidden="true">✓</span></button></div>
         </form>
       </section>
     </main>

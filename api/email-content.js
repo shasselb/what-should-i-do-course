@@ -1,7 +1,8 @@
 const USER_KEYS = {
   notes: "what-should-i-do-prework-notes-v1",
   values: "sortly-state-v1",
-  audit: "what-should-i-do-time-audit-v1"
+  audit: "what-should-i-do-time-audit-v1",
+  lessons: "what-should-i-do-self-paced-notes-v1"
 };
 
 export default async function handler(request, response) {
@@ -42,6 +43,7 @@ function buildEmail(content, email) {
   const notes = content[USER_KEYS.notes] || {};
   const state = content[USER_KEYS.values] || {};
   const audit = content[USER_KEYS.audit] || [];
+  const lessons = content[USER_KEYS.lessons] || {};
   const actionableValues = Array.isArray(state?.finalizedGroups) ? state.finalizedGroups.flatMap(group => Array.isArray(group?.values) ? group.values.map(item => {
     const value = String(item?.value || "").trim();
     const verb = String(item?.actionVerb || state?.valueActions?.[String(item?.id)] || "").trim();
@@ -50,7 +52,14 @@ function buildEmail(content, email) {
   const values = actionableValues.length ? actionableValues.join(", ") : Array.isArray(state?.confirmedValues) && state.confirmedValues.length ? state.confirmedValues.join(", ") : "Not finalized yet";
   const noteHtml = Object.entries(notes).map(([key, value]) => `<h3>${escapeHtml(key.replace(/-/g, " "))}</h3><p>${escapeHtml(value).replace(/\n/g, "<br>")}</p>`).join("") || "<p>No Pre-Work notes yet.</p>";
   const auditHours = audit.reduce((sum, item) => sum + Number(item.hours || 0), 0);
-  return `<!doctype html><html><body style="font-family:Arial,sans-serif;color:#1f2824;line-height:1.6;max-width:680px;margin:auto;padding:32px"><p style="color:#2f7257;font-weight:bold">WHAT SHOULD I DO?</p><h1>Your saved course content</h1><p>Private summary for ${escapeHtml(email)}</p><hr><h2>Pre-Work notes</h2>${noteHtml}<h2>Finalized values</h2><p>${escapeHtml(values)}</p><h2>Time Audit</h2><p>${audit.length} entries totaling ${auditHours.toFixed(2)} hours.</p><hr><small>Your account data is retained for one year after your latest update.</small></body></html>`;
+  const lessonHtml = Object.entries(lessons).sort(([left], [right]) => left.localeCompare(right)).map(([key, value]) => {
+    const label = key.replace("-", " · lesson ").toUpperCase();
+    const reflection = String(value?.reflection || "").trim();
+    const action = String(value?.action || "").trim();
+    if (!reflection && !action && !value?.complete) return "";
+    return `<h3>${escapeHtml(label)}${value?.complete ? " — Complete" : ""}</h3>${reflection ? `<p><strong>Reflection:</strong> ${escapeHtml(reflection).replace(/\n/g, "<br>")}</p>` : ""}${action ? `<p><strong>Next step:</strong> ${escapeHtml(action).replace(/\n/g, "<br>")}</p>` : ""}`;
+  }).join("") || "<p>No self-paced lesson notes yet.</p>";
+  return `<!doctype html><html><body style="font-family:Arial,sans-serif;color:#1f2824;line-height:1.6;max-width:680px;margin:auto;padding:32px"><p style="color:#2f7257;font-weight:bold">WHAT SHOULD I DO?</p><h1>Your saved course content</h1><p>Private summary for ${escapeHtml(email)}</p><hr><h2>Pre-Work notes</h2>${noteHtml}<h2>Self-paced learning journal</h2>${lessonHtml}<h2>Finalized values</h2><p>${escapeHtml(values)}</p><h2>Time Audit</h2><p>${audit.length} entries totaling ${auditHours.toFixed(2)} hours.</p><hr><small>Your account data is retained for one year after your latest update.</small></body></html>`;
 }
 
 function escapeHtml(value) {
